@@ -5,7 +5,7 @@ import DestinationItem from '../DestinationItem'
 import './index.css'
 
 class DestinationSearch extends Component {
-  state = {searchInput: '', destinations: destinationsList}
+  state = {searchInput: ''}
 
   onChangeSearchInput = event => {
     this.setState({
@@ -14,9 +14,9 @@ class DestinationSearch extends Component {
   }
 
   render() {
-    const {searchInput, destinations} = this.state
-    const searchResults = destinations.filter(eachItem =>
-      eachItem.name.includes(searchInput),
+    const {searchInput} = this.state
+    const searchResults = destinationsList.filter(eachDetail =>
+      eachDetail.name.toLowerCase().includes(searchInput.toLowerCase()),
     )
     return (
       <div className="container">
@@ -26,12 +26,15 @@ class DestinationSearch extends Component {
             type="search"
             placeholder="Search"
             onChange={this.onChangeSearchInput}
-            value={searchInput}
+            value={searchInput} <img src="https://assets.ccbp.in/frontend/react-js/destinations-search-icon-img.png" alt="search icon"/>
           />
         </div>
         <ul>
-          {searchResults.map(eachItem => (
-            <DestinationItem details={eachItem} key={eachItem.id} />
+          {searchResults.map(eachDetail => (
+            <DestinationItem
+              destinationsList={eachDetail}
+              key={eachDetail.id}
+            />
           ))}
         </ul>
       </div>
